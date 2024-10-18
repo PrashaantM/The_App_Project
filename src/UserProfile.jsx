@@ -1,4 +1,4 @@
-// src/components/UserProfile.jsx
+
 import React, { useEffect, useState } from 'react';
 import { auth, db } from './firebase'; // Ensure correct import paths
 import { doc, getDoc } from 'firebase/firestore';
