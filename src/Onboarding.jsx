@@ -3,73 +3,104 @@ import { useNavigate } from 'react-router-dom';
 
 function Onboarding({ onComplete }) {
   const [formData, setFormData] = useState({
-    phoneNumber: '',
-    name: '',
-    age: ''
+    email: '',
+    password: '',
+    confirmPassword: '',
   });
-  
-  const navigate = useNavigate(); // useNavigate hook for navigation
+  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
   const handleFinish = () => {
-    // You can save the formData to Firebase here if needed.
-    // onComplete can also save user data to global state or Firebase if necessary.
+    // You can save formData to Firebase or global state here.
+    onComplete();
+    navigate('/'); // Redirect to the dashboard after onboarding
+  };
 
-    // After completing the onboarding, navigate to the dashboard
-    onComplete(); // Call the function to complete onboarding
-    navigate('/'); // Redirect to the dashboard (root path or update it as per your route)
+  const toggleForm = () => {
+    setIsLogin(!isLogin); // Toggle between login and signup forms
   };
 
   return (
-    <div className="onboarding">
-      <h2>Welcome to the App!</h2>
-      <p>Please enter your details to get started:</p>
-      <form>
-        <div>
-          <label>Name:</label>
-          <input
-            type="text"
-            name="name"
-            value={formData.name}
-            onChange={handleChange}
-            required
-          />
+    <div className="container">
+      <input type="checkbox" id="check" checked={!isLogin} onChange={toggleForm} />
+      
+      {/* Login Form */}
+      {isLogin && (
+        <div className="login form">
+          <header>Login</header>
+          <form>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Enter your password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <a href="#">Forgot password?</a>
+            <input type="button" className="button" value="Login" onClick={handleFinish} />
+          </form>
+          <div className="signup">
+            <span>Don't have an account? <label htmlFor="check">Signup</label></span>
+          </div>
         </div>
-        <div>
-          <label>Phone Number:</label>
-          <input
-            type="tel"
-            name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleChange}
-            required
-          />
+      )}
+
+      {/* Signup Form */}
+      {!isLogin && (
+        <div className="registration form">
+          <header>Signup</header>
+          <form>
+            <input
+              type="text"
+              placeholder="Enter your email"
+              name="email"
+              value={formData.email}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Create a password"
+              name="password"
+              value={formData.password}
+              onChange={handleChange}
+              required
+            />
+            <input
+              type="password"
+              placeholder="Confirm your password"
+              name="confirmPassword"
+              value={formData.confirmPassword}
+              onChange={handleChange}
+              required
+            />
+            <input type="button" className="button" value="Signup" onClick={handleFinish} />
+          </form>
+          <div className="signup">
+            <span>Already have an account? <label htmlFor="check">Login</label></span>
+          </div>
         </div>
-        <div>
-          <label>Age:</label>
-          <input
-            type="number"
-            name="age"
-            value={formData.age}
-            onChange={handleChange}
-            required
-          />
-        </div>
-        <button type="button" onClick={handleFinish}>
-          Finish Onboarding
-        </button>
-      </form>
+      )}
     </div>
   );
 }
 
 export default Onboarding;
-
 
 

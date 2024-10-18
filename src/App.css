@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700&display=swap');
 /* App-wide basic reset */
 * {
   margin: 0;
@@ -6,10 +7,10 @@
 }
 
 /* Dashboard container */
-.dashboard, .onboarding {
+.dashboard {
   display: flex;
   height: 100vh;
-  background-color: #001f3f; /* Navy blue background for both dashboard and onboarding */
+  background-color: #001f3f; /* Navy blue background for the dashboard */
 }
 
 /* Sidebar styling */
@@ -65,112 +66,140 @@
   color: white; /* White color for dashboard heading */
 }
 
-/* Onboarding layout now mimics dashboard */
-.onboarding {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: #001f3f; /* Match dashboard background color */
-  display: flex;
-  z-index: 100;
+/* App-wide basic reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
 }
 
-/* Sidebar for onboarding */
-.onboarding-sidebar {
-  width: 250px;
-  background-color: #2c3e50; /* Same as dashboard sidebar */
-  color: white;
-  padding: 20px;
+body {
+  font-family: Arial, sans-serif;
+  min-height: 100vh;
+  background-color: #ffffff; /* Green background */
+}
+
+.container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 430px;
+  width: 100%;
+  background: #fff;
+  border-radius: 7px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
+}
+
+form {
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  justify-content: center;
 }
 
-.onboarding-sidebar h2 {
+header {
+  font-size: 2rem;
+  font-weight: 500;
   text-align: center;
-  color: white;
-  margin-bottom: 20px;
+  margin-bottom: 1.5rem;
 }
 
-/* Main content for onboarding */
-.onboarding-main-content {
-  flex-grow: 1;
-  padding: 30px;
-  background-color: #ecf0f1; /* Match the main content background */
-  display: flex;
-  justify-content: center;
-  align-items: center;
+/* Input fields styling */
+input {
+  height: 60px;
+  width: 100%;
+  padding: 0 15px;
+  font-size: 17px;
+  margin-bottom: 1.3rem;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  outline: none;
 }
 
-.onboarding-content {
-  background-color: white;
-  padding: 40px; /* Increased padding for better spacing */
-  border-radius: 10px; /* Slightly larger border radius */
-  text-align: center;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2); /* Added shadow for depth */
-  max-width: 400px; /* Limit max width for better layout */
-  width: 90%; /* Responsive width */
+input:focus {
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.2);
 }
 
-.onboarding-content h2 {
-  margin-bottom: 20px;
-  font-size: 24px; /* Increased font size for better visibility */
-  color: black; /* Set onboarding heading color to black */
+.form a {
+  font-size: 16px;
+  color: #000c95;
+  text-decoration: none;
 }
 
-.onboarding-content p {
-  margin-bottom: 20px;
-  color: #555; /* Lighter color for the text */
-  font-size: 16px; /* Smaller font size for descriptive text */
-}
-
-/* List in onboarding content */
-.onboarding-content ul {
-  list-style: none;
-  padding: 0;
-  margin: 20px 0; /* Margin for spacing */
-}
-
-.onboarding-content li {
-  margin-bottom: 10px; /* Spacing between list items */
-  font-size: 16px; /* Uniform font size */
-  color: #2c3e50; /* Dark color for readability */
+.form a:hover {
+  text-decoration: underline;
 }
 
 /* Button styling */
-.onboarding-content button {
-  background-color: #333333; /* Dark grey button */
-  color: white; /* White text */
-  border: none;
-  padding: 12px 24px; /* Increased padding */
-  border-radius: 5px;
+input.button {
+  color: #fff;
+  background-color: #000a95;
+  font-size: 1.2rem;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-top: 1.7rem;
   cursor: pointer;
-  font-size: 16px; /* Better font size for buttons */
-  transition: background-color 0.3s, transform 0.2s; /* Added transform for hover effect */
+  transition: 0.4s;
 }
 
-.onboarding-content button:hover {
-  background-color: #ffff50; /* Mustard yellow on hover */
-  transform: scale(1.05); /* Slight scaling effect for better interaction */
+input.button:hover {
+  background-color: #ffdb58;
 }
 
-/* Media Query for Mobile Responsiveness */
-@media screen and (max-width: 768px) {
-  .layout, .onboarding {
-    flex-direction: column;
-  }
+.signup {
+  font-size: 17px;
+  text-align: center;
+}
 
-  .sidebar, .onboarding-sidebar {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
+.signup label {
+  color: #002095;
+  cursor: pointer;
+}
 
-  .content-area, .onboarding-main-content {
-    height: 50vh;
-    overflow-y: auto;
+.signup label:hover {
+  text-decoration: underline;
+}
+
+/* Checkbox toggle for login/signup */
+#check {
+  display: none;
+}
+
+.container .registration {
+  display: none;
+}
+
+#check:checked ~ .registration {
+  display: block;
+}
+
+#check:checked ~ .login {
+  display: none;
+}
+
+/* Onboarding page layout */
+.onboarding {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #ecf0f1; /* Light gray background */
+}
+
+a {
+  color: #3c00ffed;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Responsive layout for mobile */
+@media (max-width: 768px) {
+  .container {
+    max-width: 90%;
   }
 }
+
