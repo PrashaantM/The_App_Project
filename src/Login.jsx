@@ -1,43 +1,53 @@
-// src/components/Login.jsx
+// src/Login.jsx
 import React, { useState } from 'react';
-import { auth } from './firebase';
-import { signInWithEmailAndPassword } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState(null);
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleLogin = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-      alert('Login successful!');
-    } catch (error) {
-      setError(error.message);
+    setError('');
+
+    // Validate email and password
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+
+    // Simulate login logic (replace this with your actual login logic)
+    if (email === 'test@example.com' && password === 'password') {
+      navigate('/profile'); // Redirect to Profile on successful login
+    } else {
+      setError('Invalid email or password');
     }
   };
 
   return (
-    <form onSubmit={handleLogin}>
-      <h2>Login</h2>
-      <input 
-        type="email" 
-        placeholder="Email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
-        required 
-      />
-      <input 
-        type="password" 
-        placeholder="Password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        required 
-      />
-      <button type="submit">Login</button>
-      {error && <p>{error}</p>}
-    </form>
+    <div>
+      <h1>Login</h1>
+      <form onSubmit={handleSubmit}>
+        <input
+          type="email"
+          placeholder="Email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          required
+        />
+        <input
+          type="password"
+          placeholder="Password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          required
+        />
+        <button type="submit">Login</button>
+      </form>
+      {error && <p style={{ color: 'red' }}>{error}</p>}
+    </div>
   );
 };
 

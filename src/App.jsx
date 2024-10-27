@@ -17,6 +17,8 @@ import Feedback from './Feedback';
 import Notifications from './Notifications';
 import Onboarding from './Onboarding'; // Import Onboarding component
 
+
+
 function Dashboard() {
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
 
@@ -79,5 +81,7 @@ function App() {
     </Router>
   );
 }
+
+
 
 export default App;

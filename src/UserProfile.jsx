@@ -1,47 +1,69 @@
-
-import React, { useEffect, useState } from 'react';
-import { auth, db } from './firebase'; // Ensure correct import paths
-import { doc, getDoc } from 'firebase/firestore';
+// src/UserProfile.jsx
+import React, { useState } from 'react';
 
 const UserProfile = () => {
-  const [userData, setUserData] = useState(null);
-  const user = auth.currentUser;
+  // Example user data with useState for editing
+  const [user, setUser] = useState({
+    name: 'Enter your full name',
+    email: 'enter your mail ID',
+    age: 0,
+  });
 
-  useEffect(() => {
-    console.log('Current User:', user); // Debugging line
+  // Handle input change
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setUser({ ...user, [name]: value });
+  };
 
-    const fetchUserData = async () => {
-      if (user) {
-        try {
-          const userDoc = await getDoc(doc(db, 'users', user.uid));
-          if (userDoc.exists()) {
-            setUserData(userDoc.data());
-          } else {
-            console.error("No such document!");
-          }
-        } catch (error) {
-          console.error("Error fetching user data:", error);
-        }
-      } else {
-        console.error("User is not authenticated");
-      }
-    };
-
-    fetchUserData();
-  }, [user]);
+  // Handle form submission (e.g., save changes)
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    // Here, you would typically handle the save operation, like sending data to an API
+    console.log('User data saved:', user);
+  };
 
   return (
     <div>
-      <h2>User Profile</h2>
-      {userData ? (
+      <h1>User Profile</h1>
+      <form onSubmit={handleSubmit}>
         <div>
-          <p>Name: {userData.name}</p>
-          <p>Email: {userData.email}</p>
-          {/* Display additional user data as needed */}
+          <label>
+            Name:
+            <input
+              type="text"
+              name="name"
+              value={user.name}
+              onChange={handleChange}
+              required
+            />
+          </label>
         </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+        <div>
+          <label>
+            Email:
+            <input
+              type="email"
+              name="email"
+              value={user.email}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <div>
+          <label>
+            Age:
+            <input
+              type="number"
+              name="age"
+              value={user.age}
+              onChange={handleChange}
+              required
+            />
+          </label>
+        </div>
+        <button type="submit">Save Changes</button>
+      </form>
     </div>
   );
 };
