@@ -1,4 +1,3 @@
-// src/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
@@ -12,15 +11,13 @@ const Login = () => {
     e.preventDefault();
     setError('');
 
-    // Validate email and password
     if (!email || !password) {
       setError('Please enter both email and password');
       return;
     }
 
-    // Simulate login logic (replace this with your actual login logic)
     if (email === 'test@example.com' && password === 'password') {
-      navigate('/profile'); // Redirect to Profile on successful login
+      navigate('/profile');
     } else {
       setError('Invalid email or password');
     }

@@ -1,87 +1,68 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
+import { auth, db } from './firebase';
+import { doc, setDoc } from 'firebase/firestore';
 
-function Onboarding({ onComplete }) {
-  const [formData, setFormData] = useState({
-    email: '',
-    password: '',
-    confirmPassword: '',
-  });
-  const [isLogin, setIsLogin] = useState(true); // Toggle between Login and Signup
+function Onboarding() {
+  const [formData, setFormData] = useState({ email: '', password: '', confirmPassword: '' });
+  const [isLogin, setIsLogin] = useState(true);
+  const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
-
-  const handleFinish = () => {
-    // You can save formData to Firebase or global state here.
-    onComplete();
-    navigate('/'); // Redirect to the dashboard after onboarding
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const toggleForm = () => {
-    setIsLogin(!isLogin); // Toggle between login and signup forms
+    setIsLogin(!isLogin);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+
+    if (!isLogin && formData.password !== formData.confirmPassword) {
+      setError('Passwords do not match');
+      return;
+    }
+
+    try {
+      if (isLogin) {
+        await signInWithEmailAndPassword(auth, formData.email, formData.password);
+      } else {
+        const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+        await setDoc(doc(db, 'users', userCredential.user.uid), { email: formData.email });
+      }
+      navigate('/');
+    } catch (err) {
+      setError(err.message);
+    }
   };
 
   return (
     <div className="container">
       <input type="checkbox" id="check" checked={!isLogin} onChange={toggleForm} />
-      
-      {/* Login Form */}
-      {isLogin && (
-        <div className="login form">
-          <header>Login</header>
-          <form>
-            <input
-              type="text"
-              placeholder="Enter your email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Enter your password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
-            <a href="#">Forgot password?</a>
-            <input type="button" className="button" value="Login" onClick={handleFinish} />
-          </form>
-          <div className="signup">
-            <span>Don't have an account? <label htmlFor="check">Signup</label></span>
-          </div>
-        </div>
-      )}
-
-      {/* Signup Form */}
-      {!isLogin && (
-        <div className="registration form">
-          <header>Signup</header>
-          <form>
-            <input
-              type="text"
-              placeholder="Enter your email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
-            <input
-              type="password"
-              placeholder="Create a password"
-              name="password"
-              value={formData.password}
-              onChange={handleChange}
-              required
-            />
+      <div className={isLogin ? "login form" : "registration form"}>
+        <header>{isLogin ? 'Login' : 'Signup'}</header>
+        <form onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="Enter your email"
+            name="email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          <input
+            type="password"
+            placeholder={isLogin ? 'Enter your password' : 'Create a password'}
+            name="password"
+            value={formData.password}
+            onChange={handleChange}
+            required
+          />
+          {!isLogin && (
             <input
               type="password"
               placeholder="Confirm your password"
@@ -90,17 +71,13 @@ function Onboarding({ onComplete }) {
               onChange={handleChange}
               required
             />
-            <input type="button" className="button" value="Signup" onClick={handleFinish} />
-          </form>
-          <div className="signup">
-            <span>Already have an account? <label htmlFor="check">Login</label></span>
-          </div>
-        </div>
-      )}
+          )}
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+          <button type="submit">{isLogin ? 'Login' : 'Signup'}</button>
+        </form>
+      </div>
     </div>
   );
 }
 
 export default Onboarding;
-
-

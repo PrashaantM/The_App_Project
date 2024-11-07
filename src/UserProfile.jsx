@@ -1,69 +1,76 @@
-// src/UserProfile.jsx
-import React, { useState } from 'react';
+// src/UserProfile.js
+import React, { useEffect, useState } from 'react';
+import { auth, db } from './firebase';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
 const UserProfile = () => {
-  // Example user data with useState for editing
-  const [user, setUser] = useState({
-    name: 'Enter your full name',
-    email: 'enter your mail ID',
-    age: 0,
-  });
+  const [userData, setUserData] = useState({});
+  const [isEditing, setIsEditing] = useState(false);
+  const [formData, setFormData] = useState({});
+  const user = auth.currentUser;
 
-  // Handle input change
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (user) {
+        const userDoc = await getDoc(doc(db, 'users', user.uid));
+        if (userDoc.exists()) {
+          setUserData(userDoc.data());
+          setFormData(userDoc.data());
+        }
+      }
+    };
+    fetchUserData();
+  }, [user]);
+
+  const handleEdit = () => setIsEditing(true);
+
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setUser({ ...user, [name]: value });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Handle form submission (e.g., save changes)
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Here, you would typically handle the save operation, like sending data to an API
-    console.log('User data saved:', user);
+  const handleSave = async () => {
+    if (user) {
+      await updateDoc(doc(db, 'users', user.uid), formData);
+      setUserData(formData);
+      setIsEditing(false);
+    }
   };
 
   return (
     <div>
-      <h1>User Profile</h1>
-      <form onSubmit={handleSubmit}>
+      <h2>User Profile</h2>
+      {userData ? (
         <div>
-          <label>
-            Name:
-            <input
-              type="text"
-              name="name"
-              value={user.name}
-              onChange={handleChange}
-              required
-            />
-          </label>
+          {isEditing ? (
+            <>
+              <input
+                type="text"
+                name="name"
+                value={formData.name || ''}
+                onChange={handleChange}
+                placeholder="Name"
+              />
+              <input
+                type="number"
+                name="age"
+                value={formData.age || ''}
+                onChange={handleChange}
+                placeholder="Age"
+              />
+              <button onClick={handleSave}>Save</button>
+            </>
+          ) : (
+            <>
+              <p><strong>Name:</strong> {userData.name}</p>
+              <p><strong>Email:</strong> {userData.email}</p>
+              <p><strong>Age:</strong> {userData.age}</p>
+              <button onClick={handleEdit}>Edit Profile</button>
+            </>
+          )}
         </div>
-        <div>
-          <label>
-            Email:
-            <input
-              type="email"
-              name="email"
-              value={user.email}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
-        <div>
-          <label>
-            Age:
-            <input
-              type="number"
-              name="age"
-              value={user.age}
-              onChange={handleChange}
-              required
-            />
-          </label>
-        </div>
-        <button type="submit">Save Changes</button>
-      </form>
+      ) : (
+        <p>Loading profile data...</p>
+      )}
     </div>
   );
 };

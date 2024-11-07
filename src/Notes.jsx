@@ -5,8 +5,7 @@ const Notes = () => {
   // State to hold the categories and their notes
   const [categories, setCategories] = useState({
     Personal: [],
-    Work: [],
-    Study: [],
+    Lecture: []
   });
   
   // State to manage active category

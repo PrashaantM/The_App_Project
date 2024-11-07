@@ -1,4 +1,3 @@
-// src/components/Registration.jsx
 import React, { useState } from 'react';
 import { auth } from './firebase';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
@@ -21,19 +20,19 @@ const Registration = () => {
   return (
     <form onSubmit={handleRegistration}>
       <h2>Register</h2>
-      <input 
-        type="email" 
-        placeholder="Email" 
-        value={email} 
-        onChange={(e) => setEmail(e.target.value)} 
-        required 
+      <input
+        type="email"
+        placeholder="Enter email"
+        value={email}
+        onChange={(e) => setEmail(e.target.value)}
+        required
       />
-      <input 
-        type="password" 
-        placeholder="Password" 
-        value={password} 
-        onChange={(e) => setPassword(e.target.value)} 
-        required 
+      <input
+        type="password"
+        placeholder="Enter password"
+        value={password}
+        onChange={(e) => setPassword(e.target.value)}
+        required
       />
       <button type="submit">Register</button>
       {error && <p>{error}</p>}

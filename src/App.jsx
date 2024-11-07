@@ -4,8 +4,7 @@ import './App.css';
 import Login from './Login';
 import Registration from './Registration';
 import GoogleLogin from './GoogleLogin';
-import UserProfile from './UserProfile'; // Updated import for UserProfile
-import Profile from './profile';
+import UserProfile from './UserProfile'; 
 import Courses from './Courses';
 import Qbanks from './Qbanks';
 import Notes from './Notes';
@@ -15,14 +14,11 @@ import Calendar from './Calendar';
 import Analysis from './Analysis';
 import Feedback from './Feedback';
 import Notifications from './Notifications';
-import Onboarding from './Onboarding'; // Import Onboarding component
-
-
+import Onboarding from './Onboarding';
 
 function Dashboard() {
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
 
-  // Function to mark onboarding as complete
   const completeOnboarding = () => {
     setIsOnboardingComplete(true);
   };
@@ -81,7 +77,5 @@ function App() {
     </Router>
   );
 }
-
-
 
 export default App;
