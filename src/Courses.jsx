@@ -1,54 +1,22 @@
-// src/components/Courses.jsx
-import React, { useEffect, useState } from 'react';
-import { db } from './firebase';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import React from 'react';
 
 const Courses = () => {
-  const [courses, setCourses] = useState([]);
-  const [filter, setFilter] = useState(''); // Filter state for categories
-
-  useEffect(() => {
-    const fetchCourses = async () => {
-      const coursesCollection = collection(db, 'courses');
-      const coursesSnapshot = await getDocs(coursesCollection);
-      const coursesList = coursesSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setCourses(coursesList);
-    };
-
-    fetchCourses();
-  }, []);
-
-  const handleEnroll = async (courseId) => {
-    const courseRef = doc(db, 'courses', courseId);
-    await updateDoc(courseRef, {
-      enrolledStudents: ["userId"] // Add the user ID to the enrolledStudents array
-    });
-    alert('Enrolled Successfully');
-  };
+  const courses = [
+    { title: "Anatomy", description: "Study of the human body" },
+    { title: "Physiology", description: "Study of body functions" },
+    { title: "Biochemistry", description: "Study of chemical processes in the body" },
+  ];
 
   return (
     <div>
-      <h2>Available Courses</h2>
-      <input
-        type="text"
-        placeholder="Filter courses by category"
-        value={filter}
-        onChange={(e) => setFilter(e.target.value)}
-      />
+      <h3>Courses</h3>
       <ul>
-        {courses
-          .filter((course) =>
-            course.category.toLowerCase().includes(filter.toLowerCase())
-          )
-          .map((course) => (
-            <li key={course.id}>
-              <h3>{course.title}</h3>
-              <p>{course.description}</p>
-              <p>Category: {course.category}</p>
-              <p>Duration: {course.duration}</p>
-              <button onClick={() => handleEnroll(course.id)}>Enroll</button>
-            </li>
-          ))}
+        {courses.map((course, index) => (
+          <li key={index}>
+            <h4>{course.title}</h4>
+            <p>{course.description}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );

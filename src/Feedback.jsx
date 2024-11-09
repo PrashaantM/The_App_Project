@@ -1,12 +1,15 @@
 import React from 'react';
 
-function Feedback() {
+const Feedback = () => {
   return (
     <div>
-      <h2>Feedback</h2>
-      <p>This is the Feedback page.</p>
+      <h3>Feedback</h3>
+      <form>
+        <textarea placeholder="Provide feedback..." rows="4" />
+        <button type="submit">Submit</button>
+      </form>
     </div>
   );
-}
+};
 
 export default Feedback;

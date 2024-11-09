@@ -1,12 +1,15 @@
 import React from 'react';
 
-function Calendar() {
+const Calendar = () => {
   return (
     <div>
-      <h2>Calendar</h2>
-      <p>This is the Calendar page.</p>
+      <h3>Upcoming Deadlines</h3>
+      <div className="calendar">
+        {/* Replace with calendar component */}
+        <p>Calendar will show here</p>
+      </div>
     </div>
   );
-}
+};
 
 export default Calendar;

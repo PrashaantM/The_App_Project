@@ -1,12 +1,15 @@
 import React from 'react';
 
-function Tests() {
+const Tests = () => {
   return (
     <div>
-      <h2>Tests</h2>
-      <p>This is the Tests page.</p>
+      <h3>Upcoming Tests</h3>
+      <ul>
+        <li>Test on Cardiovascular Health - 20th November</li>
+        <li>Test on Anatomy - 22nd November</li>
+      </ul>
     </div>
   );
-}
+};
 
 export default Tests;

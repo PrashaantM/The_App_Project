@@ -1,4 +1,3 @@
-// src/components/Qbank.jsx
 import React, { useState, useEffect } from 'react';
 import { db } from './firebase';
 import { collection, getDocs } from 'firebase/firestore';
@@ -35,22 +34,21 @@ const Qbank = () => {
       <h2>Question Bank</h2>
       {showResults ? (
         <div>
-          <h3>Your Score: {score}/{questions.length}</h3>
+          <h3>Your Score: {score} / {questions.length}</h3>
+          <button onClick={() => { setShowResults(false); setScore(0); setCurrentQuestion(0); }}>
+            Retry
+          </button>
         </div>
-      ) : questions.length > 0 ? (
+      ) : (
         <div>
-          <h3>{questions[currentQuestion].questionText}</h3>
-          {questions[currentQuestion].options.map((option) => (
-            <button
-              key={option.text}
-              onClick={() => handleAnswer(option.isCorrect)}
-            >
+          <h3>Question {currentQuestion + 1}</h3>
+          <p>{questions[currentQuestion].question}</p>
+          {questions[currentQuestion].options.map((option, index) => (
+            <button key={index} onClick={() => handleAnswer(option.isCorrect)}>
               {option.text}
             </button>
           ))}
         </div>
-      ) : (
-        <p>Loading questions...</p>
       )}
     </div>
   );

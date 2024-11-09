@@ -1,40 +1,15 @@
-// src/components/Profile.jsx
-import React, { useEffect, useState } from 'react';
-import { auth, db } from './firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import React from 'react';
 
-const UserProfile = () => {
-  const [userData, setUserData] = useState(null);
-  const user = auth.currentUser;
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      if (user) {
-        const userDoc = await getDoc(doc(db, 'users', user.uid));
-        if (userDoc.exists()) {
-          setUserData(userDoc.data());
-        }
-      }
-    };
-
-    fetchUserData();
-  }, [user]);
-
+const Profile = () => {
   return (
     <div>
-      <h2>User Profile</h2>
-      {userData ? (
-        <div>
-          <p><strong>Name:</strong> {userData.name}</p>
-          <p><strong>Email:</strong> {userData.email}</p>
-          <p><strong>Age:</strong> {userData.age}</p>
-          <p><strong>Bio:</strong> {userData.bio}</p>
-        </div>
-      ) : (
-        <p>Loading...</p>
-      )}
+      <h1>Profile</h1>
+      <p>Student Name: John Doe</p>
+      <p>Email: johndoe@example.com</p>
+      <p>Phone Number: 123-456-7890</p>
+      <button>Edit Profile</button>
     </div>
   );
 };
 
-export default UserProfile;
+export default Profile;

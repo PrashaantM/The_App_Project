@@ -1,43 +1,22 @@
-// src/components/Notifications.jsx
-import React, { useEffect, useState } from 'react';
-import { db } from './firebase';
-import { collection, getDocs, doc, updateDoc } from 'firebase/firestore';
+import React, { useState, useEffect } from 'react';
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
 
   useEffect(() => {
-    const fetchNotifications = async () => {
-      const notificationsCollection = collection(db, 'notifications');
-      const notificationsSnapshot = await getDocs(notificationsCollection);
-      const notificationsList = notificationsSnapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
-      setNotifications(notificationsList);
-    };
-
-    fetchNotifications();
+    // Simulate fetching notifications
+    setNotifications([
+      { id: 1, message: 'Your test result is available.' },
+      { id: 2, message: 'You have a new assignment.' },
+    ]);
   }, []);
-
-  const markAsRead = async (id) => {
-    const notificationRef = doc(db, 'notifications', id);
-    await updateDoc(notificationRef, { read: true });
-    setNotifications((prev) =>
-      prev.map((notif) =>
-        notif.id === id ? { ...notif, read: true } : notif
-      )
-    );
-  };
 
   return (
     <div>
-      <h2>Notifications</h2>
+      <h3>Notifications</h3>
       <ul>
-        {notifications.map((notif) => (
-          <li key={notif.id}>
-            <p>{notif.message}</p>
-            <button onClick={() => markAsRead(notif.id)}>
-              {notif.read ? 'Read' : 'Mark as Read'}
-            </button>
-          </li>
+        {notifications.map((notification) => (
+          <li key={notification.id}>{notification.message}</li>
         ))}
       </ul>
     </div>
