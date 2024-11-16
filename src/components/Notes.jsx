@@ -1,40 +1,203 @@
+// src/components/Notes.jsx
 import React, { useState, useEffect } from 'react';
+import '../styles/notes.css';
 
-const Notes = () => {
+function Notes() {
   const [notes, setNotes] = useState([]);
-  const [newNote, setNewNote] = useState('');
+  const [newNote, setNewNote] = useState({ title: '', content: '', category: '', priority: 'Low', dueDate: '', tags: '', reminder: false });
+  const [searchTerm, setSearchTerm] = useState('');
+  const [editMode, setEditMode] = useState(false);
+  const [currentNoteId, setCurrentNoteId] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
-    // Fetch notes from API or Firebase (simulated here)
-    setNotes([
-      { id: 1, content: 'Study for the upcoming test on cardiovascular health.' },
-      { id: 2, content: 'Review notes on anatomy chapter 5.' },
-    ]);
+    const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
+    setNotes(savedNotes);
   }, []);
 
-  const handleAddNote = () => {
-    if (newNote) {
-      setNotes([...notes, { id: notes.length + 1, content: newNote }]);
-      setNewNote('');
-    }
+  const handleChange = (e) => {
+    const { name, value, checked, type } = e.target;
+    setNewNote({
+      ...newNote,
+      [name]: type === 'checkbox' ? checked : value,
+    });
   };
 
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (editMode) {
+      const updatedNotes = notes.map((note) =>
+        note.id === currentNoteId ? { ...note, ...newNote } : note
+      );
+      setNotes(updatedNotes);
+      localStorage.setItem('notes', JSON.stringify(updatedNotes));
+      setEditMode(false);
+    } else {
+      const newNoteWithId = { ...newNote, id: Date.now() };
+      const updatedNotes = [...notes, newNoteWithId];
+      setNotes(updatedNotes);
+      localStorage.setItem('notes', JSON.stringify(updatedNotes));
+    }
+    setNewNote({ title: '', content: '', category: '', priority: 'Low', dueDate: '', tags: '', reminder: false });
+  };
+
+  const handleDelete = (id) => {
+    const updatedNotes = notes.filter((note) => note.id !== id);
+    setNotes(updatedNotes);
+    localStorage.setItem('notes', JSON.stringify(updatedNotes));
+  };
+
+  const handleEdit = (id) => {
+    const noteToEdit = notes.find((note) => note.id === id);
+    setNewNote({
+      title: noteToEdit.title,
+      content: noteToEdit.content,
+      category: noteToEdit.category,
+      priority: noteToEdit.priority,
+      dueDate: noteToEdit.dueDate,
+      tags: noteToEdit.tags,
+      reminder: noteToEdit.reminder,
+    });
+    setCurrentNoteId(id);
+    setEditMode(true);
+  };
+
+  const toggleDarkMode = () => {
+    setDarkMode(!darkMode);
+  };
+
+  const filteredNotes = notes.filter((note) =>
+    note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
+    note.tags.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
-    <div>
-      <h3>Study Notes</h3>
-      <ul>
-        {notes.map((note) => (
-          <li key={note.id}>{note.content}</li>
-        ))}
-      </ul>
-      <textarea
-        value={newNote}
-        onChange={(e) => setNewNote(e.target.value)}
-        placeholder="Add new note"
+    <div className={`notes-container ${darkMode ? 'dark' : ''}`}>
+      <button className="dark-mode-toggle" onClick={toggleDarkMode}>
+        {darkMode ? 'Light Mode' : 'Dark Mode'}
+      </button>
+
+      <h2>Notes</h2>
+
+      <input
+        type="text"
+        placeholder="Search notes..."
+        value={searchTerm}
+        onChange={handleSearch}
+        className="search-input"
       />
-      <button onClick={handleAddNote}>Add Note</button>
+
+      <form onSubmit={handleSubmit} className="note-form">
+        <div className="form-group">
+          <label htmlFor="title">Title</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value={newNote.title}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="content">Content</label>
+          <textarea
+            id="content"
+            name="content"
+            value={newNote.content}
+            onChange={handleChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="category">Category</label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            value={newNote.category}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="priority">Priority</label>
+          <select
+            id="priority"
+            name="priority"
+            value={newNote.priority}
+            onChange={handleChange}
+          >
+            <option value="Low">Low</option>
+            <option value="Medium">Medium</option>
+            <option value="High">High</option>
+          </select>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="dueDate">Due Date</label>
+          <input
+            type="date"
+            id="dueDate"
+            name="dueDate"
+            value={newNote.dueDate}
+            onChange={handleChange}
+          />
+        </div>
+
+        <div className="form-group">
+          <label>
+            <input
+              type="checkbox"
+              name="reminder"
+              checked={newNote.reminder}
+              onChange={handleChange}
+            />
+            Set Reminder
+          </label>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="tags">Tags (comma separated)</label>
+          <input
+            type="text"
+            id="tags"
+            name="tags"
+            value={newNote.tags}
+            onChange={handleChange}
+          />
+        </div>
+
+        <button type="submit">{editMode ? 'Update Note' : 'Add Note'}</button>
+      </form>
+
+      <div className="notes-list">
+        {filteredNotes.length > 0 ? (
+          filteredNotes.map((note) => (
+            <div key={note.id} className="note-item">
+              <h3>{note.title}</h3>
+              <p>{note.content}</p>
+              <small>Category: {note.category}</small>
+              <small>Priority: {note.priority}</small>
+              <small>Due Date: {note.dueDate}</small>
+              <small>Tags: {note.tags}</small>
+              <button onClick={() => handleEdit(note.id)}>Edit</button>
+              <button onClick={() => handleDelete(note.id)}>Delete</button>
+            </div>
+          ))
+        ) : (
+          <p>No notes found</p>
+        )}
+      </div>
     </div>
   );
-};
+}
 
 export default Notes;
