@@ -1,22 +1,21 @@
+// src/pages/Onboarding.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from './firebase';
 
 function Onboarding({ onAuth }) {
-  const [isLogin, setIsLogin] = useState(false);
+  const [isLogin, setIsLogin] = useState(true);
   const [formData, setFormData] = useState({ email: '', password: '' });
   const [error, setError] = useState('');
   const navigate = useNavigate();
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
-
   const toggleForm = () => setIsLogin(!isLogin);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
-
     try {
       if (isLogin) {
         await signInWithEmailAndPassword(auth, formData.email, formData.password);

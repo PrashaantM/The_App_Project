@@ -1,3 +1,4 @@
+// src/components/Calendar.jsx
 import React from 'react';
 
 const Calendar = () => {
@@ -5,7 +6,6 @@ const Calendar = () => {
     <div>
       <h3>Upcoming Deadlines</h3>
       <div className="calendar">
-        {/* Replace with calendar component */}
         <p>Calendar will show here</p>
       </div>
     </div>

@@ -1,3 +1,4 @@
+// src/components/Courses.jsx
 import React from 'react';
 
 const Courses = () => {
