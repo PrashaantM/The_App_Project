@@ -32,6 +32,9 @@ const Courses = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalContent, setModalContent] = useState("");
 
+  // State for search input
+  const [searchTerm, setSearchTerm] = useState("");
+
   // Function to handle starting a lesson or module
   const startLesson = (lesson) => {
     setModalContent(lesson);
@@ -44,11 +47,44 @@ const Courses = () => {
     setModalContent("");
   };
 
+  // Function to filter courses and modules by search term
+  const filterCourses = (courses) => {
+    return courses.filter((course) => {
+      const courseMatches = course.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                            course.description.toLowerCase().includes(searchTerm.toLowerCase());
+
+      const moduleMatches = course.modules.some(module =>
+        module.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+        module.lessons.some(lesson => lesson.toLowerCase().includes(searchTerm.toLowerCase()))
+      );
+
+      return courseMatches || moduleMatches;
+    });
+  };
+
+  // Sorting function for courses and modules
+  const sortCourses = (courses) => {
+    return courses.sort((a, b) => a.title.localeCompare(b.title));
+  };
+
+  const filteredAndSortedCourses = sortCourses(filterCourses(courses));
+
   return (
     <div className="courses-container">
       <h3>Available Courses</h3>
+      
+      {/* Search Bar */}
+      <div className="search-bar">
+        <input
+          type="text"
+          placeholder="Search Courses or Lessons"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+        />
+      </div>
+
       <div className="courses-list">
-        {courses.map((course, courseIndex) => (
+        {filteredAndSortedCourses.map((course, courseIndex) => (
           <div key={courseIndex} className="course-card">
             <h4>{course.title}</h4>
             <p>{course.description}</p>
@@ -137,6 +173,17 @@ const Courses = () => {
         h3 {
           text-align: center;
           margin-bottom: 20px;
+        }
+        .search-bar {
+          margin-bottom: 20px;
+          text-align: center;
+        }
+        .search-bar input {
+          padding: 10px;
+          width: 80%;
+          max-width: 400px;
+          border: 1px solid #ccc;
+          border-radius: 4px;
         }
         /* Modal styling */
         .modal-overlay {
