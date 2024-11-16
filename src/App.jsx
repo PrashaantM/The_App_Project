@@ -33,12 +33,13 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/feedback" element={<Feedback />} />
-          <Route path="/q-banks" element={<QBanks />} />
+           <Route path="/qbanks" element={<QBanks />} />
           <Route path="/notes" element={<Notes />} />
-          <Route path="/video-recordings" element={<VideoRecordings />} />
+          <Route path="/videorecordings" element={<VideoRecordings />} />
           <Route path="/tests" element={<Tests />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/notifications" element={<Notifications />} />
+
         </Routes>
       </div>
     </Router>
