@@ -8,12 +8,13 @@ import Profile from './components/Profile';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
 import Feedback from './components/Feedback';
-import QBanks from './components/QBanks';
+import QBanks from './components/qbanks';
 import Notes from './components/Notes';
 import VideoRecordings from './components/VideoRecordings';
-import Tests from './components/Tests';
+import Tests from './components/tests';
 import Analysis from './components/Analysis';
 import Notifications from './components/Notifications';
+import LessonPage from './pages/LessonPage';  // Import the LessonPage component
 import './App.css';
 
 function App() {
@@ -39,6 +40,9 @@ function App() {
           <Route path="/tests" element={<Tests />} />
           <Route path="/analysis" element={<Analysis />} />
           <Route path="/notifications" element={<Notifications />} />
+          
+          {/* Dynamic route for lesson pages */}
+          <Route path="/lesson/:lessonId" element={<LessonPage />} />  {/* Route for each lesson */}
         </Routes>
       </div>
     </Router>
