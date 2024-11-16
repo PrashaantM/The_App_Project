@@ -1,15 +1,78 @@
-// src/components/Analysis.jsx
-
 import React from 'react';
+import { Bar, Pie } from 'react-chartjs-2';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  ArcElement,
+  Tooltip,
+  Legend,
+} from 'chart.js';
+import '../styles/Analysis.css';
+
+// Register chart.js components
+ChartJS.register(CategoryScale, LinearScale, BarElement, ArcElement, Tooltip, Legend);
 
 const Analysis = () => {
+  // Dummy Data
+  const performanceData = {
+    labels: ['Math', 'Science', 'English', 'History', 'Art'],
+    datasets: [
+      {
+        label: 'Test Scores (%)',
+        data: [85, 60, 75, 50, 90],
+        backgroundColor: ['#4caf50', '#ff5722', '#2196f3', '#ffc107', '#9c27b0'],
+      },
+    ],
+  };
+
+  const studyTimeData = {
+    labels: ['Math', 'Science', 'English', 'History', 'Art'],
+    datasets: [
+      {
+        data: [12, 8, 10, 6, 14],
+        backgroundColor: ['#4caf50', '#ff5722', '#2196f3', '#ffc107', '#9c27b0'],
+      },
+    ],
+  };
+
+  const aiInsights = [
+    "Focus more on History, as your scores are low (50%).",
+    "Increase study time for Science to improve understanding.",
+    "You're doing great in Art! Keep up the good work.",
+    "Consider revising English topics for consistent performance.",
+  ];
+
   return (
     <div className="analysis">
-      <h2>Analysis</h2>
-      <p>View your performance analysis here. Check your progress and identify areas to improve.</p>
-      {/* You can add charts, graphs, and summary stats here */}
+      <h2>Analysis Dashboard</h2>
+      <p>Track your performance, study time, and readiness here.</p>
+
+      {/* Performance Chart */}
+      <div className="chart-container">
+        <h3>Performance by Subject</h3>
+        <Bar data={performanceData} options={{ responsive: true, maintainAspectRatio: false }} />
+      </div>
+
+      {/* Study Time Chart */}
+      <div className="chart-container">
+        <h3>Study Time (Hours)</h3>
+        <Pie data={studyTimeData} options={{ responsive: true, maintainAspectRatio: false }} />
+      </div>
+
+      {/* AI Insights */}
+      <div className="ai-insights">
+        <h3>AI Insights</h3>
+        <ul>
+          {aiInsights.map((insight, index) => (
+            <li key={index}>{insight}</li>
+          ))}
+        </ul>
+      </div>
     </div>
   );
 };
 
 export default Analysis;
+
