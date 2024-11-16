@@ -1,0 +1,54 @@
+.calendar-container {
+    margin: 20px auto;
+    max-width: 800px;
+    text-align: center;
+  }
+  
+  .calendar-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .add-event-button {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .add-event-button svg {
+    margin-right: 5px;
+  }
+  
+  .event {
+    margin-top: 5px;
+    padding: 2px 5px;
+    border-radius: 3px;
+    font-size: 12px;
+  }
+  
+  .event-lesson {
+    background-color: #ffeb3b;
+    color: #000;
+  }
+  
+  .event-test {
+    background-color: #f44336;
+    color: #fff;
+  }
+  
+  .event-live {
+    background-color: #2196f3;
+    color: #fff;
+  }
+  
+  .event-details {
+    margin-top: 20px;
+    text-align: left;
+  }
+  
