@@ -1,4 +1,3 @@
-// src/pages/Login.jsx
 import React, { useState } from 'react';
 
 const Login = () => {
@@ -7,11 +6,12 @@ const Login = () => {
 
   const handleLogin = (e) => {
     e.preventDefault();
+    // Implement authentication logic here
     alert('Login successful');
   };
 
   return (
-    <div className="container">
+    <div className="login-container">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <input
@@ -20,6 +20,7 @@ const Login = () => {
           onChange={(e) => setEmail(e.target.value)}
           placeholder="Email"
           required
+          className="login-input"
         />
         <input
           type="password"
@@ -27,8 +28,9 @@ const Login = () => {
           onChange={(e) => setPassword(e.target.value)}
           placeholder="Password"
           required
+          className="login-input"
         />
-        <button type="submit">Login</button>
+        <button type="submit" className="login-button">Login</button>
       </form>
     </div>
   );

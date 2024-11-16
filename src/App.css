@@ -1,26 +1,86 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: 'Poppins', sans-serif;
+:root {
+  --primary-bg: #001f3f;
+  --secondary-bg: #2c3e50;
+  --highlight-color: #ffff50;
+  --text-color: #ffffff;
+  --button-bg: #000a95;
+  --button-hover-bg: #ffdb58;
 }
 
 body {
-  display: flex;
-  min-width: 320px;
-  min-height: 100vh;
-  background-color: #ecf0f1;
+  font-family: 'Poppins', sans-serif;
+  background-color: var(--primary-bg);
+  color: var(--text-color);
+  margin: 0;
+  padding: 0;
 }
 
+/* General button styles */
+button {
+  background-color: var(--button-bg);
+  color: var(--text-color);
+  border: none;
+  cursor: pointer;
+  padding: 10px 20px;
+  font-size: 16px;
+  border-radius: 8px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: var(--button-hover-bg);
+}
+
+/* Styles for the login page */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #ecf0f1;
+  padding: 20px;
+}
+
+form {
+  background-color: white;
+  padding: 40px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 16px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  font-size: 16px;
+}
+
+input:focus {
+  border-color: var(--button-bg);
+  outline: none;
+}
+
+/* Styles for the sidebar */
 .sidebar {
   width: 250px;
   background-color: #2c3e50;
   padding: 20px;
   color: white;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  flex-direction: column;
 }
 
 .sidebar h2 {
   text-align: center;
+  margin-bottom: 30px;
 }
 
 .sidebar ul li {
@@ -36,23 +96,51 @@ body {
   background-color: #ffff50;
 }
 
+/* Styles for the dashboard */
+.dashboard {
+  display: flex;
+  margin-left: 250px;
+  padding: 30px;
+  height: 100vh;
+  background-color: #ecf0f1;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
 .main-content {
   flex-grow: 1;
-  padding: 30px;
+  padding: 20px;
   background-color: #ecf0f1;
 }
 
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #000a95;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: background-color 0.3s;
+h1, h3 {
+  color: var(--text-color);
 }
 
-button:hover {
-  background-color: #ffdb58;
+/* Adjustments for the profile page */
+.profile {
+  padding: 30px;
+  background-color: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* General responsive design */
+@media (max-width: 768px) {
+  .sidebar {
+    width: 200px;
+  }
+  .dashboard {
+    margin-left: 200px;
+  }
+}
+
+@media (max-width: 480px) {
+  .sidebar {
+    width: 100%;
+    height: auto;
+  }
+  .dashboard {
+    margin-left: 0;
+  }
 }
