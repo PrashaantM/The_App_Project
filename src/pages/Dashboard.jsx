@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import Calendar from '../components/Calendar';
 import Courses from '../components/Courses';
 
+
 const Dashboard = () => (
   <div className="dashboard">
     <Sidebar />
