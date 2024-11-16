@@ -8,6 +8,12 @@ import Profile from './components/Profile';
 import Courses from './components/Courses';
 import Calendar from './components/Calendar';
 import Feedback from './components/Feedback';
+import QBanks from './components/QBanks';
+import Notes from './components/Notes';
+import VideoRecordings from './components/VideoRecordings';
+import Tests from './components/Tests';
+import Analysis from './components/Analysis';
+import Notifications from './components/Notifications';
 import './App.css';
 
 function App() {
@@ -27,6 +33,12 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/feedback" element={<Feedback />} />
+          <Route path="/q-banks" element={<QBanks />} />
+          <Route path="/notes" element={<Notes />} />
+          <Route path="/video-recordings" element={<VideoRecordings />} />
+          <Route path="/tests" element={<Tests />} />
+          <Route path="/analysis" element={<Analysis />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </div>
     </Router>
