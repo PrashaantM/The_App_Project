@@ -1,25 +1,88 @@
-:root {
-  --calendar-bg: #1f2b3d;
-  --day-bg: #3c8dff;
-  --day-text: #ffffff;
-}
-
-.calendar {
-  background-color: var(--calendar-bg);
-  border-radius: 12px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+/* General Layout */
+.calendar-container {
+  font-family: Arial, sans-serif;
+  text-align: center;
   padding: 20px;
+  background-color: #f9f9f9;
 }
 
-.day {
-  color: var(--day-text);
+h2 {
+  font-size: 24px;
+  color: #333;
 }
 
-.day:hover {
-  background-color: var(--day-bg);
+p {
+  font-size: 14px;
+  color: #666;
+}
+
+.calendar-wrapper {
+  margin: 20px auto;
+  max-width: 400px;
+}
+
+/* Calendar Styles */
+.react-calendar {
+  border: none;
+  background-color: #fff;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+}
+
+.react-calendar__tile {
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s ease;
+}
+
+.react-calendar__tile--active {
+  background-color: #3c8dff;
   color: white;
+  border-radius: 50%;
 }
 
-.day-number {
-  color: var(--day-text);
+.react-calendar__tile--now {
+  background-color: #edf3ff;
+  border-radius: 50%;
+}
+
+/* Event Count Display */
+.day-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.event-count {
+  margin-top: 5px;
+  font-size: 12px;
+  color: #666;
+}
+
+.react-calendar__tile:hover {
+  background-color: #edf3ff;
+}
+
+/* Event Details */
+.event-details {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.event-details h4 {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.event-details ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.event-details li {
+  font-size: 14px;
+  color: #333;
 }
