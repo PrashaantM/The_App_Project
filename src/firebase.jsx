@@ -6,13 +6,13 @@ import { getFirestore } from 'firebase/firestore';
 import { getMessaging } from 'firebase/messaging';
 
 const firebaseConfig = {
-    apiKey: "AIzaSyA8BanNc5vFzBWlhTbmh4qFMJxLKFSoMNw",
-    authDomain: "the-app-project-7b10c.firebaseapp.com",
-    projectId: "the-app-project-7b10c",
-    storageBucket: "the-app-project-7b10c.firebasestorage.app",
-    messagingSenderId: "759768964402",
-    appId: "1:759768964402:web:64adf539af69674866cb2b",
-    measurementId: "G-1LG524SDDF"
+  apiKey: "AIzaSyA0y8CryNIb_L0Wc7mhI7IcUNWDspQZfIg",
+  authDomain: "idiot-project-dadf4.firebaseapp.com",
+  projectId: "idiot-project-dadf4",
+  storageBucket: "idiot-project-dadf4.firebasestorage.app",
+  messagingSenderId: "630453573857",
+  appId: "1:630453573857:web:a601adb88cf7b2c12ebfa0",
+  measurementId: "G-4M1Q1KR679"
   };
   
 
