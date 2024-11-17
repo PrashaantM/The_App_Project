@@ -2,6 +2,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
+import Chatbot from './components/chatbot';  // Import the Chatbot component
 import Login from './pages/Login';
 import Onboarding from './pages/Onboarding';
 import Profile from './components/Profile';
@@ -43,6 +44,9 @@ function App() {
           
           {/* Dynamic route for lesson pages */}
           <Route path="/lesson/:lessonId" element={<LessonPage />} />  {/* Route for each lesson */}
+          
+          {/* Add route for the Chatbot */}
+          <Route path="/chatbot" element={<Chatbot />} />  {/* Route for the chatbot */}
         </Routes>
       </div>
     </Router>
@@ -50,3 +54,4 @@ function App() {
 }
 
 export default App;
+
