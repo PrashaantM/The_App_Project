@@ -1,4 +1,6 @@
+// src/components/Courses.jsx
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 const Courses = () => {
   const courses = [
@@ -28,26 +30,8 @@ const Courses = () => {
     },
   ];
 
-  // State to manage the modal
-  const [modalVisible, setModalVisible] = useState(false);
-  const [modalContent, setModalContent] = useState("");
-
-  // State for search input
   const [searchTerm, setSearchTerm] = useState("");
 
-  // Function to handle starting a lesson or module
-  const startLesson = (lesson) => {
-    setModalContent(lesson);
-    setModalVisible(true);
-  };
-
-  // Function to close the modal
-  const closeModal = () => {
-    setModalVisible(false);
-    setModalContent("");
-  };
-
-  // Function to filter courses and modules by search term
   const filterCourses = (courses) => {
     return courses.filter((course) => {
       const courseMatches = course.title.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -62,7 +46,6 @@ const Courses = () => {
     });
   };
 
-  // Sorting function for courses and modules
   const sortCourses = (courses) => {
     return courses.sort((a, b) => a.title.localeCompare(b.title));
   };
@@ -72,8 +55,6 @@ const Courses = () => {
   return (
     <div className="courses-container">
       <h3>Available Courses</h3>
-      
-      {/* Search Bar */}
       <div className="search-bar">
         <input
           type="text"
@@ -97,12 +78,9 @@ const Courses = () => {
                     {module.lessons.map((lesson, lessonIndex) => (
                       <div key={lessonIndex} className="lesson-item">
                         <p>{lesson}</p>
-                        <button
-                          onClick={() => startLesson(lesson)}
-                          className="start-lesson-btn"
-                        >
-                          Start Lesson
-                        </button>
+                        <Link to={`/lesson/${lesson}`}>
+                          <button className="start-lesson-btn">Start Lesson</button>
+                        </Link>
                       </div>
                     ))}
                   </div>
@@ -112,112 +90,6 @@ const Courses = () => {
           </div>
         ))}
       </div>
-
-      {/* Modal Component */}
-      {modalVisible && (
-        <div className="modal-overlay">
-          <div className="modal">
-            <h4>Start Lesson</h4>
-            <p>You are about to start: <strong>{modalContent}</strong></p>
-            <button onClick={closeModal} className="close-modal-btn">
-              Close
-            </button>
-          </div>
-        </div>
-      )}
-
-      {/* Simple styling */}
-      <style jsx>{`
-        .courses-container {
-          max-width: 1200px;
-          margin: 0 auto;
-          padding: 20px;
-        }
-        .courses-list {
-          display: grid;
-          grid-template-columns: 1fr 1fr 1fr;
-          gap: 20px;
-        }
-        .course-card {
-          padding: 20px;
-          border: 1px solid #ccc;
-          border-radius: 8px;
-          background-color: #f9f9f9;
-        }
-        .module-card {
-          margin-top: 10px;
-          padding: 15px;
-          background-color: #e0e0e0;
-          border-radius: 8px;
-        }
-        .lessons-list {
-          margin-top: 10px;
-        }
-        .lesson-item {
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          margin-bottom: 10px;
-        }
-        .start-lesson-btn {
-          padding: 5px 10px;
-          background-color: #007bff;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .start-lesson-btn:hover {
-          background-color: #0056b3;
-        }
-        h3 {
-          text-align: center;
-          margin-bottom: 20px;
-        }
-        .search-bar {
-          margin-bottom: 20px;
-          text-align: center;
-        }
-        .search-bar input {
-          padding: 10px;
-          width: 80%;
-          max-width: 400px;
-          border: 1px solid #ccc;
-          border-radius: 4px;
-        }
-        /* Modal styling */
-        .modal-overlay {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 100%;
-          height: 100%;
-          background-color: rgba(0, 0, 0, 0.5);
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          z-index: 1000;
-        }
-        .modal {
-          background: white;
-          padding: 20px;
-          border-radius: 8px;
-          width: 300px;
-          text-align: center;
-        }
-        .close-modal-btn {
-          margin-top: 15px;
-          padding: 5px 10px;
-          background-color: #dc3545;
-          color: white;
-          border: none;
-          border-radius: 4px;
-          cursor: pointer;
-        }
-        .close-modal-btn:hover {
-          background-color: #c82333;
-        }
-      `}</style>
     </div>
   );
 };
