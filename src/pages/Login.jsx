@@ -1,39 +1,28 @@
 import React, { useState } from 'react';
-import '../styles/login.css';
+import '../styles/login.css'; // Ensure the correct path
 
-const Login = () => {
-  const [isLogin, setIsLogin] = useState(true); // Determines if it's the login or sign-up page
+const Login = ({ showForm, setShowForm }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    if (isLogin) {
+    if (showForm === 'login') {
       alert('Login successful');
-    } else {
-      alert('Sign-up successful');
+    } else if (showForm === 'register') {
+      // Ensure passwords match for registration
+      if (password !== confirmPassword) {
+        alert('Passwords do not match');
+      } else {
+        alert('Registration successful');
+      }
     }
   };
 
   return (
     <div className="login-container">
-      <div className="nav-buttons">
-        <button
-          className={isLogin ? 'active' : ''}
-          onClick={() => setIsLogin(true)}
-        >
-          Login
-        </button>
-        <button
-          className={!isLogin ? 'active' : ''}
-          onClick={() => setIsLogin(false)}
-        >
-          Sign Up
-        </button>
-      </div>
-      <h1 className={isLogin ? 'highlight-login' : 'highlight-signup'}>
-        {isLogin ? 'Login' : 'Sign Up'}
-      </h1>
+      <h1>{showForm === 'login' ? 'Login' : 'Register'}</h1>
       <form onSubmit={handleFormSubmit} className="login-form">
         <input
           type="email"
@@ -49,8 +38,18 @@ const Login = () => {
           placeholder="Password"
           required
         />
-        <button type="submit">
-          {isLogin ? 'Login' : 'Sign Up'}
+        {showForm === 'register' && (
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
+            required
+          />
+        )}
+        <button type="submit">{showForm === 'login' ? 'Login' : 'Register'}</button>
+        <button type="button" onClick={() => setShowForm(null)}>
+          Back
         </button>
       </form>
     </div>
