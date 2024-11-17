@@ -50,15 +50,45 @@ const Analysis = () => {
       <p>Track your performance, study time, and readiness here.</p>
 
       {/* Performance Chart */}
-      <div className="chart-container">
+      <div className="chart-container bar-chart-container">
         <h3>Performance by Subject</h3>
-        <Bar data={performanceData} options={{ responsive: true, maintainAspectRatio: false }} />
+        <Bar 
+          data={performanceData} 
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: 0.75, // Decrease the size of the bar chart even further
+            plugins: {
+              legend: { labels: { color: '#ffffff' } }, // White legend labels
+              tooltip: { titleColor: '#ffffff', bodyColor: '#ffffff' }, // White tooltip text
+            },
+            scales: {
+              x: {
+                ticks: { color: '#ffffff' }, // White labels for X-axis
+              },
+              y: {
+                ticks: { color: '#ffffff' }, // White labels for Y-axis
+              },
+            },
+          }} 
+        />
       </div>
 
-      {/* Study Time Chart */}
-      <div className="chart-container">
+      {/* Study Time Chart (Pie) */}
+      <div className="chart-container pie-chart-container">
         <h3>Study Time (Hours)</h3>
-        <Pie data={studyTimeData} options={{ responsive: true, maintainAspectRatio: false }} />
+        <Pie 
+          data={studyTimeData} 
+          options={{
+            responsive: true,
+            maintainAspectRatio: false,
+            aspectRatio: 0.75, // Decrease the size of the pie chart
+            plugins: {
+              legend: { labels: { color: '#ffffff' } }, // White legend labels
+              tooltip: { titleColor: '#ffffff', bodyColor: '#ffffff' }, // White tooltip text
+            },
+          }} 
+        />
       </div>
 
       {/* AI Insights */}
@@ -75,4 +105,3 @@ const Analysis = () => {
 };
 
 export default Analysis;
-
