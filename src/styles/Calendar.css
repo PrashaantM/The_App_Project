@@ -1,21 +1,25 @@
-body {
-  background-color: #181818;
-  color: #D1D1D1;
-  font-family: 'Arial', sans-serif;
+:root {
+  --calendar-bg: #1f2b3d;
+  --day-bg: #3c8dff;
+  --day-text: #ffffff;
 }
 
 .calendar {
-  background-color: #2A2A2A;
+  background-color: var(--calendar-bg);
   border-radius: 12px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
   padding: 20px;
 }
 
 .day {
-  color: #B1B1B1;
+  color: var(--day-text);
 }
 
 .day:hover {
-  background-color: #3C8DFF;
+  background-color: var(--day-bg);
   color: white;
+}
+
+.day-number {
+  color: var(--day-text);
 }

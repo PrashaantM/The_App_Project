@@ -1,24 +1,15 @@
-:root {
-  --primary-bg: #001f3f;
-  --secondary-bg: #2c3e50;
-  --highlight-color: #ffff50;
-  --text-color: #ffffff;
-  --button-bg: #000a95;
-  --button-hover-bg: #ffdb58;
-}
-
 body {
   font-family: 'Poppins', sans-serif;
-  background-color: var(--primary-bg);
-  color: var(--text-color);
+  background-color: #001f3f;
+  color: #ffffff;
   margin: 0;
   padding: 0;
 }
 
 /* General button styles */
 button {
-  background-color: var(--button-bg);
-  color: var(--text-color);
+  background-color: #2534ff;
+  color: #ffffff;
   border: none;
   cursor: pointer;
   padding: 10px 20px;
@@ -28,7 +19,7 @@ button {
 }
 
 button:hover {
-  background-color: var(--button-hover-bg);
+  background-color: #ffdb58;
 }
 
 /* Styles for the login page */
@@ -60,7 +51,7 @@ input {
 }
 
 input:focus {
-  border-color: var(--button-bg);
+  border-color: #2534ff;
   outline: none;
 }
 
@@ -114,7 +105,7 @@ input:focus {
 }
 
 h1, h3 {
-  color: var(--text-color);
+  color: #ffffff;
 }
 
 /* Adjustments for the profile page */

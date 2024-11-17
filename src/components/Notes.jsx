@@ -1,4 +1,3 @@
-// src/components/Notes.jsx
 import React, { useState, useEffect } from 'react';
 import '../styles/notes.css';
 
@@ -8,7 +7,6 @@ function Notes() {
   const [searchTerm, setSearchTerm] = useState('');
   const [editMode, setEditMode] = useState(false);
   const [currentNoteId, setCurrentNoteId] = useState(null);
-  const [darkMode, setDarkMode] = useState(false);
 
   useEffect(() => {
     const savedNotes = JSON.parse(localStorage.getItem('notes')) || [];
@@ -66,10 +64,6 @@ function Notes() {
     setEditMode(true);
   };
 
-  const toggleDarkMode = () => {
-    setDarkMode(!darkMode);
-  };
-
   const filteredNotes = notes.filter((note) =>
     note.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     note.content.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -77,11 +71,7 @@ function Notes() {
   );
 
   return (
-    <div className={`notes-container ${darkMode ? 'dark' : ''}`}>
-      <button className="dark-mode-toggle" onClick={toggleDarkMode}>
-        {darkMode ? 'Light Mode' : 'Dark Mode'}
-      </button>
-
+    <div className="notes-container">
       <h2>Notes</h2>
 
       <input

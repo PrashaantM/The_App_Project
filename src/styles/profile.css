@@ -1,21 +1,21 @@
-body {
-    background-color: #181818;
-    color: #D1D1D1;
-    font-family: 'Arial', sans-serif;
-}
-
-.profile-container {
-    background-color: #2A2A2A;
+:root {
+    --profile-bg: #2a2a2a;
+    --heading-color: #3c8dff;
+  }
+  
+  .profile-container {
+    background-color: var(--profile-bg);
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.3);
-}
-
-h1, h2 {
-    color: #3C8DFF;
-}
-
-.profile-info {
-    color: #B1B1B1;
+  }
+  
+  h1, h2 {
+    color: var(--heading-color);
+  }
+  
+  .profile-info {
+    color: #ffffff;
     margin-bottom: 20px;
-}
+  }
+  
