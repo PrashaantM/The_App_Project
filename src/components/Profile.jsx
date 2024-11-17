@@ -1,4 +1,3 @@
-// src/components/Profile.jsx
 import React, { useState, useEffect } from 'react';
 import ProfileEdit from './ProfileEdit';
 import '../styles/profile.css'; // Import the CSS file
@@ -12,7 +11,7 @@ function Profile() {
     bio: '',
   });
 
-  // Load profile data from local storage on component mount
+  // Load profile data from localStorage on component mount
   useEffect(() => {
     const storedProfile = JSON.parse(localStorage.getItem('profileData'));
     if (storedProfile) {
@@ -25,7 +24,7 @@ function Profile() {
   };
 
   const handleSaveProfile = (updatedData) => {
-    // Save updated profile data to local storage
+    // Save updated profile data to localStorage
     localStorage.setItem('profileData', JSON.stringify(updatedData));
     setProfileData(updatedData);
     setIsEditing(false);
@@ -35,6 +34,7 @@ function Profile() {
     <div className="profile-container">
       <h2>User Profile</h2>
       {isEditing ? (
+        // When editing, show the ProfileEdit component
         <ProfileEdit initialData={profileData} onSave={handleSaveProfile} />
       ) : (
         <div className="profile-details">

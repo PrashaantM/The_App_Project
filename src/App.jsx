@@ -1,9 +1,10 @@
-// src/App.jsx
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Dashboard from './pages/Dashboard';
 import Chatbot from './components/chatbot';  // Import the Chatbot component
 import Login from './pages/Login';
+import Registration from './pages/Registration';
+
 import Onboarding from './pages/Onboarding';
 import Profile from './components/Profile';
 import Courses from './components/Courses';
@@ -35,6 +36,7 @@ function App() {
           <Route path="/courses" element={<Courses />} />
           <Route path="/calendar" element={<Calendar />} />
           <Route path="/feedback" element={<Feedback />} />
+          <Route path="/registration" element={<Registration />} /> {/* Define route for Registration */}
           <Route path="/qbanks" element={<QBanks />} />
           <Route path="/notes" element={<Notes />} />
           <Route path="/videorecordings" element={<VideoRecordings />} />
@@ -54,4 +56,3 @@ function App() {
 }
 
 export default App;
-

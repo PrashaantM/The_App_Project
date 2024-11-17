@@ -1,57 +1,64 @@
 import React, { useState } from 'react';
-import '../styles/login.css'; // Ensure the correct path
+import { useNavigate, Link } from 'react-router-dom'; 
+import { auth } from '../firebase'; // Firebase setup
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import '../styles/login.css';
 
-const Login = ({ showForm, setShowForm }) => {
+const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate();
 
-  const handleFormSubmit = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    if (showForm === 'login') {
-      alert('Login successful');
-    } else if (showForm === 'register') {
-      // Ensure passwords match for registration
-      if (password !== confirmPassword) {
-        alert('Passwords do not match');
-      } else {
-        alert('Registration successful');
-      }
+    setError('');
+    try {
+      // Firebase login
+      await signInWithEmailAndPassword(auth, email, password);
+      localStorage.setItem('userLoggedIn', true);
+      navigate('/dashboard');
+    } catch (err) {
+      setError('Incorrect email or password'); // Display error if login fails
     }
   };
 
   return (
     <div className="login-container">
-      <h1>{showForm === 'login' ? 'Login' : 'Register'}</h1>
-      <form onSubmit={handleFormSubmit} className="login-form">
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          placeholder="Email"
-          required
-        />
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          placeholder="Password"
-          required
-        />
-        {showForm === 'register' && (
-          <input
-            type="password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            placeholder="Confirm Password"
-            required
-          />
-        )}
-        <button type="submit">{showForm === 'login' ? 'Login' : 'Register'}</button>
-        <button type="button" onClick={() => setShowForm(null)}>
-          Back
-        </button>
-      </form>
+      <div className="login-box">
+        <h1 className="welcome-text">Welcome to Our App</h1>
+        <form onSubmit={handleLogin} className="login-form">
+          {error && <p className="error-text">{error}</p>} {/* Display error if login fails */}
+          <div className="input-container">
+            <label htmlFor="email" className="input-label">Email</label>
+            <input
+              id="email"
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Email"
+              required
+              className="login-input"
+            />
+          </div>
+          <div className="input-container">
+            <label htmlFor="password" className="input-label">Password</label>
+            <input
+              id="password"
+              type="password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              placeholder="Password"
+              required
+              className="login-input"
+            />
+          </div>
+          <button type="submit" className="login-button">Login</button>
+        </form>
+        <div className="signup-link">
+          <Link to="/registration" className="signup-link-text">Need an account? Sign Up</Link> {/* Updated to navigate to Registration */}
+        </div>
+      </div>
     </div>
   );
 };

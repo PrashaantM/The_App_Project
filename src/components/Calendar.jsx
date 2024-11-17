@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 import '../styles/calendar.css';
+
 // Dummy data for initial events
 const events = [
   { date: new Date(2024, 10, 20), title: 'Math Exam' },
@@ -34,7 +35,7 @@ const CalendarPage = () => {
       {/* Sidebar for events */}
       <div className="sidebar">
         <h3>Assignments & Reminders</h3>
-        <ul>
+        <ul className="reminders-list">
           {reminders.map((reminder, index) => (
             <li key={index}>
               {reminder.title} - {reminder.date.toDateString()}
@@ -55,7 +56,9 @@ const CalendarPage = () => {
             value={noteText}
             onChange={(e) => setNoteText(e.target.value)}
           />
-          <button onClick={handleAddNote}>Add Reminder</button>
+          <button className="add-reminder-button" onClick={handleAddNote}>
+            Add Reminder
+          </button>
         </div>
       </div>
 

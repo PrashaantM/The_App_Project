@@ -1,24 +1,29 @@
 /* Layout */
-.calendar-page {
-  display: flex;
-  flex-direction: row;
+.calendar-container {
+  flex: 0.6; /* Maintain its size */
+  margin-left: auto; /* Push the calendar to the right */
+  max-width: 980px; /* Optional: Limit its width */
   padding: 20px;
-  max-width: 1200px;
-  margin: 0 auto;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
+
 .sidebar {
-  width: 25%;
-  padding: 20px;
+  width: 28%; /* Sidebar takes up 28% of the total width */
+  padding: 40px; /* Inner padding for content in the sidebar */
+  margin-right: 40px; /* Adds spacing between the sidebar and the calendar */
   background-color: #f9f9f9;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-right: 20px;
 }
+
 
 .sidebar h3, .sidebar h4 {
   font-size: 18px;
-  color: #333;
+  color: #ffffff;
 }
 
 .sidebar ul {
@@ -30,19 +35,21 @@
 
 /* Calendar Container */
 .calendar-container {
-  flex: 1;
-  padding: 20px;
-  background-color: #fff;
-  border-radius: 8px;
+  flex: 1; /* Makes the calendar container fill the remaining space */
+  padding: 20px; /* Inner padding for the content */
+  background-color: #fff; /* White background for the calendar container */
+  border-radius: 8px; /* Rounded corners */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+
 .react-calendar {
-  border: none;
-  width: 100%;
+  width: 80%; /* Makes the calendar occupy 80% of the container */
+  margin: 0 auto; /* Centers the calendar horizontally */
   font-size: 16px;
   color: #333;
 }
+
 
 .react-calendar__navigation button {
   color: #333;

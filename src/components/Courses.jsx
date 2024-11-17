@@ -1,6 +1,7 @@
 // src/components/Courses.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import '../styles/courses.css';
 
 const Courses = () => {
   const courses = [

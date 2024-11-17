@@ -76,7 +76,7 @@ input:focus {
 
 .sidebar ul li {
   padding: 15px;
-  background-color: #34495e;
+  background-color: #f5f6f7;
   border-radius: 5px;
   margin-bottom: 10px;
   cursor: pointer;
@@ -105,7 +105,7 @@ input:focus {
 }
 
 h1, h3 {
-  color: #ffffff;
+  color: #000000;
 }
 
 /* Adjustments for the profile page */

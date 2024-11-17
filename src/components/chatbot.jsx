@@ -1,4 +1,3 @@
-// src/components/Chatbot.jsx
 import React, { useState } from 'react';
 import { Widget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
@@ -8,34 +7,45 @@ const Chatbot = () => {
 
   // Function to handle new user message
   const handleNewUserMessage = async (newMessage) => {
-    setMessages([...messages, { text: newMessage, isUserMessage: true }]);
+    console.log('New user message:', newMessage);  // Debugging line
 
-    // Handle response from chatbot (send message to backend)
+    // Add user message to the state
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: newMessage, isUserMessage: true },
+    ]);
+
+    // Get the chatbot's response from the backend
     const response = await getChatbotResponse(newMessage);
-    setMessages([...messages, { text: newMessage, isUserMessage: true }, { text: response, isUserMessage: false }]);
+    console.log('Chatbot response:', response);  // Debugging line
+
+    // Add the chatbot's response to the state
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { text: newMessage, isUserMessage: true },
+      { text: response, isUserMessage: false },
+    ]);
   };
 
-  // Get response from the backend based on user message
+  // Function to get response from the backend
   const getChatbotResponse = async (message) => {
     try {
+      console.log('Sending message to backend:', message);  // Debugging line
+
+      const backendResponse = await fetch('http://localhost:5001/chatbot/question', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ message }),
+      });
+
+      const data = await backendResponse.json();
+      console.log('Backend response:', data);  // Debugging line
+
       let response;
-
-      if (message.toLowerCase().includes('quiz')) {
-        // Send request for quiz (quiz could be fetched from backend or predefined)
-        response = 'Let me quiz you on your weak topics!';
-      } else if (message.toLowerCase().includes('explain')) {
-        // Handle note explanation, send request to backend
-        response = 'Please upload your notes, and I will explain them!';
+      if (data.error) {
+        response = data.error;
       } else {
-        // Send general message to backend (API call to process the question)
-        const backendResponse = await fetch('http://localhost:5000/chatbot/question', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ message }),
-        });
-
-        const data = await backendResponse.json();
-        response = data.answer || 'I am not sure how to respond to that.';
+        response = data.answer || 'I couldn\'t get a proper response from the backend.';
       }
 
       return response;
@@ -57,4 +67,3 @@ const Chatbot = () => {
 };
 
 export default Chatbot;
-

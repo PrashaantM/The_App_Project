@@ -1,23 +1,38 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate
+import { auth } from '../firebase'; // Import Firebase auth instance
+import { createUserWithEmailAndPassword } from 'firebase/auth';
 
 const Registration = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [error, setError] = useState('');
+  const navigate = useNavigate(); // Initialize navigate
 
-  const handleRegister = (e) => {
+  const handleRegister = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
+    setError(''); // Clear any previous error messages
+    if (password !== confirmPassword) {
+      setError('Passwords do not match.');
+      return;
+    }
+
+    try {
+      // Firebase registration
+      await createUserWithEmailAndPassword(auth, email, password);
       alert('Registration successful!');
-    } else {
-      alert('Passwords do not match.');
+      navigate('/login'); // Redirect to login page on successful registration
+    } catch (err) {
+      setError(err.message); // Display any errors from Firebase
     }
   };
 
   return (
-    <div>
+    <div className="registration-container">
       <h1>Register</h1>
       <form onSubmit={handleRegister}>
+        {error && <p className="error-text">{error}</p>} {/* Display error if present */}
         <input
           type="email"
           value={email}

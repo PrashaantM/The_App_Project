@@ -1,65 +1,44 @@
+// Use import instead of require
 import express from 'express';
-import { OpenAI } from 'openai';
-import bodyParser from 'body-parser';
 import cors from 'cors';
-import dotenv from 'dotenv';  // Import dotenv
+import bodyParser from 'body-parser';
 
-dotenv.config();  // Load environment variables from .env file
-
+// Create an Express app
 const app = express();
-const PORT = 5001;
 
-app.use(bodyParser.json());
-app.use(cors());
+// Middleware
+app.use(cors()); // Enable CORS
+app.use(bodyParser.json()); // Parse JSON request body
 
-// Use the OpenAI API key from environment variables
-const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY,  // Get the API key from the environment variable
-});
-
-// Test Endpoint
-app.get('/api/test', (req, res) => {
-  res.json({ message: 'API is working!' });
-});
-
-// Handle user questions
-app.post('/chatbot/question', async (req, res) => {
-  const { message } = req.body;
-
-  try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4', // Use GPT-4 or GPT-3.5-turbo
-      messages: [{ role: 'user', content: message }],
-    });
-
-    res.json({ answer: response.choices[0].message.content });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to get response from AI' });
+// Simple AI Logic Placeholder
+const getAIResponse = (message) => {
+  if (message.toLowerCase().includes('quiz')) {
+    return 'Let me quiz you on your weak topics!';
+  } else if (message.toLowerCase().includes('explain')) {
+    return 'Please upload your notes, and I will explain them!';
+  } else {
+    return 'Hello! How can I assist you today?';
   }
-});
+};
 
-// Endpoint for uploaded notes explanation
-app.post('/chatbot/upload-notes', async (req, res) => {
-  const { notesContent } = req.body;
-
+// Route to handle chatbot question
+app.post('/chatbot/question', async (req, res) => {
   try {
-    const response = await openai.chat.completions.create({
-      model: 'gpt-4', // Or 'gpt-3.5-turbo'
-      messages: [
-        { role: 'system', content: 'You are an expert tutor.' },
-        { role: 'user', content: `Please explain the following notes: ${notesContent}` },
-      ],
-    });
+    const { message } = req.body;
+    console.log('Received message:', message);  // Log incoming message
 
-    res.json({ explanation: response.choices[0].message.content });
+    const response = getAIResponse(message);  // Process the message
+    console.log('Sending response:', response);  // Log outgoing response
+
+    res.json({ answer: response });  // Send response to frontend
   } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Failed to process notes' });
+    console.error('Error processing AI response:', error);
+    res.status(500).json({ error: 'Failed to get response from AI', details: error.message });
   }
 });
 
 // Start the server
+const PORT = 5001;
 app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+  console.log(`Server is running on http://localhost:${PORT}`);
 });

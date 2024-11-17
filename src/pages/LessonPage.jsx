@@ -1,7 +1,6 @@
-// src/pages/LessonPage.jsx
 import React from 'react';
 import { useParams } from 'react-router-dom';
-
+import '../styles/LessonPage.css';
 const LessonPage = () => {
   const { lessonId } = useParams(); // Retrieve the lessonId from the URL
 

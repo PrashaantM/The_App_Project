@@ -1,33 +1,57 @@
-:root {
-  --notification-bg: #f9f9f9;
-  --notification-hover-bg: #e0f7fa;
-  --read-notification-bg: #e8f5e9;
-  --read-notification-border: #4caf50;
-  --unread-notification-bg: #e0f7fa;
-  --unread-notification-border: #00bcd4;
+.notifications {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.notifications li.unread {
-  background: var(--unread-notification-bg);
-  border-left: 5px solid var(--unread-notification-border);
+.notifications h3 {
+  color: #2534ff;
+  margin-bottom: 10px;
 }
 
-.notifications li.read {
-  background: var(--read-notification-bg);
-  border-left: 5px solid var(--read-notification-border);
+.notifications p {
+  color: #333; /* For unread count text */
 }
 
-.notifications li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background: var(--notification-bg);
-  margin: 5px 0;
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+.notifications button {
+  background-color: #2534ff;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-left: 10px;
 }
 
 .notifications button:hover {
-  background-color: #ddd;
+  background-color: #ffdb58;
+  color: #000;
+}
+
+.notifications ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.notifications li {
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.notifications li.read {
+  background-color: #e0e0e0; /* Light gray for read notifications */
+}
+
+.notifications li.unread {
+  background-color: #ffeb3b; /* Yellow background for unread notifications */
+  font-weight: bold;
+}
+
+.notifications span {
+  color: #000; /* Set text color to black for the notification message */
 }

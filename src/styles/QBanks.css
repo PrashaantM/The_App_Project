@@ -1,32 +1,66 @@
-:root {
-  --qbank-bg: #2a2a2a;
-  --question-bg: #3a3a3a;
-  --button-bg: #3c8dff;
-  --button-hover-bg: #ffdb58;
-}
-
-.qbank-container {
-  background-color: var(--qbank-bg);
-  padding: 40px;
-  border-radius: 12px;
-}
-
-.question {
-  background-color: var(--question-bg);
-  padding: 15px;
-  margin-bottom: 20px;
+.q-banks {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: #2c3e50; /* Dark background for contrast */
   border-radius: 8px;
+  color: white; /* Set default text color to white */
 }
 
-button {
-  background-color: var(--button-bg);
-  color: white;
-  padding: 12px 25px;
-  border: none;
+.q-banks h2 {
+  color: white; /* Make sure the heading text is white */
+}
+
+.q-banks p {
+  color: white; /* Change paragraph text to white */
+}
+
+.topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.topic-card {
+  background-color: #34495e; /* Slightly lighter background for each topic card */
+  padding: 20px;
   border-radius: 8px;
   cursor: pointer;
+  width: 200px;
+  color: white;
 }
 
-button:hover {
-  background-color: var(--button-hover-bg);
+.topic-card:hover {
+  background-color: #2980b9; /* Highlight on hover */
+}
+
+.selected-topic {
+  margin-top: 30px;
+}
+
+.selected-topic h3 {
+  color: white;
+}
+
+.selected-topic ul {
+  color: white;
+}
+
+.ai-insights {
+  margin-top: 30px;
+}
+
+.ai-insights h3 {
+  color: white;
+}
+
+.ai-insights ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.ai-insights li {
+  background-color: #7f8c8d;
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 5px;
 }
